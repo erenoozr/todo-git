@@ -1,41 +1,41 @@
 # todo-git
 
-Koddaki `TODO`, `FIXME`, `HACK`, `XXX` ve `shortcut:` notlarını tarar, tek sayfalık bir HTML rapor üretir.
-Rapor açık ve koyu temaya uyar, etiket başına özet gösterir.
+Scans code for `TODO`, `FIXME`, `HACK`, `XXX` and `shortcut:` notes and produces a single-page HTML report.
+The report follows light/dark mode and shows a per-tag summary.
 
-## Kullanım
+## Usage
 
-Python 3.8+ yeterli, ek paket gerekmez.
+Python 3.8+, no dependencies.
 
 ```
-python todo_git.py C:\Dev\projem
-python todo_git.py C:\Dev\projem -o rapor.html
+python todo_git.py C:\Dev\myproject
+python todo_git.py C:\Dev\myproject -o report.html
 ```
 
-Varsayılan çıktı, çalıştırdığın klasördeki `todo-rapor.html` dosyasıdır.
+The default output is `todo-report.html` in the current directory.
 
-## Neyi yakalar?
+## What it matches
 
-- Büyük harfle ve tam kelime olarak yazılmış `TODO`, `FIXME`, `HACK`, `XXX`. `todos` ya da `XXXL` gibi kelimeler eşleşmez.
-- Küçük harfle `shortcut:` biçimindeki notlar.
+- `TODO`, `FIXME`, `HACK`, `XXX` in uppercase as whole words. Words like `todos` or `XXXL` don't match.
+- Lowercase notes in the form `shortcut:`.
 
-## Neyi atlar?
+## What it skips
 
-- `.git`, `node_modules`, `venv`, `.venv`, `dist`, `build`, `__pycache__` klasörleri. Bu klasörlerin içine hiç girilmez.
-- 1 MB'tan büyük dosyalar ve ikili dosyalar.
-- Raporun kendisi, taranan klasörün içine yazılsa bile.
+- `.git`, `node_modules`, `venv`, `.venv`, `dist`, `build`, `__pycache__` folders. It never descends into them.
+- Files larger than 1 MB and binary files.
+- The report itself, even when it is written inside the scanned folder.
 
-UTF-8 olmayan metin dosyaları da taranır; bozuk karakterler `?` olarak görünür.
+Non-UTF-8 text files are still scanned; undecodable characters show up as `?`.
 
-## Sınırlar
+## Limits
 
-Satır bazlı regex ile arar ve satırın yorum olup olmadığına bakmaz. Örneğin bir string içindeki `TODO` da yakalanır.
+It matches line by line with a regex and does not check whether the line is a comment. For example, a `TODO` inside a string is also matched.
 
-## Geliştirme
+## Development
 
 ```
 pip install pytest
 python -m pytest tests
 ```
 
-Lisans: MIT
+License: MIT
