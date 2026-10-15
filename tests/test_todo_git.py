@@ -21,7 +21,7 @@ def test_no_false_positives(tmp_path):
 
 
 def test_non_utf8_file(tmp_path):
-    (tmp_path / "legacy.txt").write_bytes("# FIXME: şu\n".encode("cp1254"))
+    (tmp_path / "legacy.txt").write_bytes("# FIXME: café\n".encode("cp1252"))
     assert [t for t, *_ in todo_git.scan(tmp_path)] == ["FIXME"]
 
 
